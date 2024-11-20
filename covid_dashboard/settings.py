@@ -24,9 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(k59#o@6%hcm0794fs37wqp6y5@*3(cktt%^q1pg2z%10%1(vj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+if DEBUG:
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+else:
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_yasg',
     'data_app',
     'country_app',
@@ -46,6 +50,9 @@ INSTALLED_APPS = [
     'vaccination_app',
     'statistics_app',
     'visualization_app',
+    'forecasting_app',
+    'account_management',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +65,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'covid_dashboard.urls'
@@ -139,3 +147,12 @@ if not DEBUG:    # Tell Django to copy static assets into a path called `staticf
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'account_management.CustomUser'
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3001",  # Your frontend address
+]
+
+CORS_ALLOW_CREDENTIALS = True

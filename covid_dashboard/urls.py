@@ -27,5 +27,8 @@ urlpatterns = [
     path('', include('vaccination_app.urls')),
     path('', include('statistics_app.urls')),
     path('', include('visualization_app.urls')),
+    path('forecasting/', include('forecasting_app.urls')),
+    path('auth/', include('account_management.urls')),
+    
     
 ]
